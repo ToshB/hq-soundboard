@@ -7,16 +7,8 @@
 	--color-edge: #8a6a43;
 	--color-gold: #ffc92e;
 	--color-seal: #7b2418;
-	--font-display: "Cinzel", Georgia, serif;
+	--font-display: var(--font-cinzel), Georgia, serif;
 	--spacing-dock: calc(100px + env(safe-area-inset-bottom, 0px));
-}
-
-@font-face {
-	font-family: "Cinzel";
-	font-weight: 600;
-	font-style: normal;
-	font-display: swap;
-	src: url("../fonts/cinzel-600.woff2") format("woff2");
 }
 
 @layer base {
@@ -38,7 +30,7 @@
 		min-height: 100dvh;
 		margin-inline: auto;
 		text-align: center;
-		background-image: url("../images/gui/background2.png");
+		background-image: url("/images/gui/background2.png");
 		background-repeat: no-repeat;
 		background-size: 100% 100%;
 		background-color: black;
@@ -88,7 +80,7 @@
 	}
 
 	/* Music tiles not yet cached for offline recede rather than gaining a new colour */
-	#panel_music .btn:not(.btn-cached) {
+	.btn-music:not(.btn-cached) {
 		opacity: 0.55;
 	}
 
