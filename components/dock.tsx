@@ -6,8 +6,7 @@ import { DEFAULT_VOLUME, usePlayer, VOLUME_KEY } from "@/hooks/use-player";
 export type Tab = "sounds" | "music";
 
 export function Dock({ activeTab, onTabChange }: { activeTab: Tab; onTabChange: (tab: Tab) => void }) {
-	const { audioRef, nowPlaying } = usePlayer();
-	const [isPaused, setIsPaused] = useState(true);
+	const { audioRef, nowPlaying, isPaused } = usePlayer();
 	const scrubRef = useRef<HTMLInputElement>(null);
 	const [volume, setVolume] = useState(DEFAULT_VOLUME);
 
@@ -22,12 +21,6 @@ export function Dock({ activeTab, onTabChange }: { activeTab: Tab; onTabChange: 
 		const el = audioRef.current;
 		if (!el) return;
 
-		function onPlay() {
-			setIsPaused(false);
-		}
-		function onPause() {
-			setIsPaused(true);
-		}
 		function onTimeUpdate() {
 			const scrub = scrubRef.current;
 			if (!scrub || !el || scrub.matches(":active")) return;
@@ -36,12 +29,8 @@ export function Dock({ activeTab, onTabChange }: { activeTab: Tab; onTabChange: 
 			}
 		}
 
-		el.addEventListener("play", onPlay);
-		el.addEventListener("pause", onPause);
 		el.addEventListener("timeupdate", onTimeUpdate);
 		return () => {
-			el.removeEventListener("play", onPlay);
-			el.removeEventListener("pause", onPause);
 			el.removeEventListener("timeupdate", onTimeUpdate);
 		};
 	}, [audioRef]);
