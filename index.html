@@ -120,6 +120,45 @@ body {
 	min-width: 0;
 }
 
+.pagehead {
+	min-width: 0;
+}
+
+.tabs {
+	display: flex;
+	gap: 8px;
+	justify-content: center;
+	max-width: 420px;
+	margin: 0 auto;
+	padding: 8px 0 4px;
+}
+
+.tab {
+	flex: 1;
+	min-height: 46px;
+	padding: 4px 2px;
+	border-radius: 4px;
+	border: 1px solid tan;
+	border-bottom: 3px solid tan;
+	cursor: pointer;
+	color: black;
+	background-color: linen;
+	font-weight: 700;
+	font-size: clamp(12px, 3vw, 15px);
+	letter-spacing: 0.04em;
+	touch-action: manipulation;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.tabactive {
+	background-color: gold;
+	border-bottom: 3px solid #b8860b;
+}
+
+.tabpanel[hidden] {
+	display: none;
+}
+
 /* One fluid grid for every button group. Each group sets its own --min. */
 .gridbuttons {
 	display: grid;
@@ -268,8 +307,22 @@ function toggleaudio() {
 	document.getElementById("version").innerHTML = "v"+version+" "+format+"";
 }
 
+function show_tab(name) {
+	var tabs = ["sounds", "music"];
+	for (var i = 0; i < tabs.length; i++) {
+		var on = tabs[i] === name;
+		var panel = document.getElementById("panel_" + tabs[i]);
+		var tab = document.getElementById("tab_" + tabs[i]);
+		panel.hidden = !on;
+		tab.classList.toggle("tabactive", on);
+		tab.setAttribute("aria-selected", on ? "true" : "false");
+	}
+	window.scrollTo(0, 0);
+}
+
 function loadpage() {
 	document.getElementById("version").innerHTML = "v"+version+" "+format+"";
+	show_tab("sounds");
 }
 </script>
 </head>
@@ -279,13 +332,22 @@ function loadpage() {
 <!-- DISPLAY : START -->
 
 <div class="panel">
+	<div class="pagehead">
+		<div class="midtitle">
+			<img class="logo" id="Logo" src="images/gui/logo.png" alt="HeroQuest">
+			<br>SOUND BOARD
+		</div>
+		<div class="subtitle">Created by <a href="https://banjogames.wordpress.com/">Banjo</a> (<span id="version">v3.0</span>)</div>
+	</div>
+
+	<div class="tabs" role="tablist">
+		<button class="tab tabactive" id="tab_sounds" role="tab" aria-selected="true" aria-controls="panel_sounds" onClick="show_tab('sounds')">SOUNDS</button>
+		<button class="tab" id="tab_music" role="tab" aria-selected="false" aria-controls="panel_music" onClick="show_tab('music')">MUSIC</button>
+	</div>
+
+	<div class="tabpanel" id="panel_sounds" role="tabpanel" aria-labelledby="tab_sounds">
 	<div class="soundpanel1">
 		<div class="soundcolumn">
-			<div class="midtitle">
-				<img class="logo" id="Logo" src="images/gui/logo.png" alt="HeroQuest">
-				<br>SOUND BOARD
-			</div>
-			<div class="subtitle">Created by <a href="https://banjogames.wordpress.com/">Banjo</a> (<span id="version">v3.0</span>)</div>
 			<div class="spacer1"></div>
 			<div class="header">MONSTERS</div>
 			<div class="gridbuttons grid-monsters">
@@ -419,10 +481,11 @@ function loadpage() {
 			</div>
 		</div>
 	</div>
+	</div>
 
+	<div class="tabpanel" id="panel_music" role="tabpanel" aria-labelledby="tab_music" hidden>
 	<div class="soundpanel2">
-		<div class="header2">MUSIC</div>
-
+		<div class="spacer1"></div>
 		<div class="subheader">MOOD &amp; AMBIENCE</div>
 		<div class="gridbuttons grid-music">
 			<button class="button" id="music_battle" onClick="play_music(this.id)">Battle</button>
@@ -484,6 +547,7 @@ function loadpage() {
 			<button class="button" id="music_pc-cover" onClick="play_music_secret(this.id,event)">Cover</button>
 			<button class="button" id="music_pc-cover_hidden" onClick="play_music(this.id)">Cover 2</button>
 		</div>
+	</div>
 	</div>
 
 	<div class="player">
