@@ -70,8 +70,12 @@
 		border-bottom-width: 1px;
 	}
 
-	.btn-lit {
+	/* Sustained "this sound is still going" state for SFX tiles — the held-key look,
+	   lasting as long as the sound actually plays rather than a fixed-time flash. */
+	.btn-held {
 		background-color: var(--color-gold);
+		transform: translateY(1px);
+		border-bottom-width: 1px;
 	}
 
 	.btn-pinned {
@@ -82,6 +86,74 @@
 	/* Music tiles not yet cached for offline recede rather than gaining a new colour */
 	.btn-music:not(.btn-cached) {
 		opacity: 0.55;
+	}
+
+	/* Sustained "this track is playing" state for music tiles. Deliberately not the flat
+	   gold of a held key — music loops indefinitely, so a permanently depressed button
+	   would read as stuck. A breathing halo + bouncing bars reads as "ongoing" instead. */
+	.btn-music.btn-playing {
+		position: relative;
+		opacity: 1;
+		animation: tile-breathe 2.4s ease-in-out infinite;
+	}
+
+	.btn-bars {
+		position: absolute;
+		top: 4px;
+		left: 4px;
+		display: flex;
+		align-items: flex-end;
+		gap: 2px;
+		height: 10px;
+	}
+
+	.btn-bars i {
+		width: 2px;
+		height: 100%;
+		background-color: var(--color-seal);
+		border-radius: 1px;
+		transform-origin: bottom;
+		animation: tile-bars 0.9s ease-in-out infinite;
+	}
+
+	.btn-bars i:nth-child(2) {
+		animation-delay: 0.18s;
+	}
+
+	.btn-bars i:nth-child(3) {
+		animation-delay: 0.36s;
+	}
+
+	@keyframes tile-breathe {
+		0%,
+		100% {
+			box-shadow: 0 0 0 1px rgba(255, 201, 46, 0.35);
+		}
+		50% {
+			box-shadow: 0 0 10px 3px rgba(255, 201, 46, 0.55);
+		}
+	}
+
+	@keyframes tile-bars {
+		0%,
+		100% {
+			transform: scaleY(0.35);
+		}
+		50% {
+			transform: scaleY(1);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.btn-music.btn-playing {
+			animation: none;
+			box-shadow: 0 0 8px 2px rgba(255, 201, 46, 0.5);
+		}
+
+		.btn-bars i {
+			animation: none;
+			transform: scaleY(0.7);
+		}
 	}
 
 	/* Sticky group labels — wayfinding while scrolling 154 buttons */
