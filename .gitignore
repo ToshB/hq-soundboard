@@ -1,5 +1,7 @@
 /.idea
 /.DS_Store
 /sounds
+/custom
 /node_modules
 *.swp
+.vercel

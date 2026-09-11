@@ -17,6 +17,12 @@ var format="mp3";
 var audio="";
 var music="";
 
+var AUDIO_BASE = "https://t5ysgwkiiembz7oj.public.blob.vercel-storage.com";
+
+function sfx_url(id) { return AUDIO_BASE + "/sfx/" + format + "/" + id + "." + format; }
+function music_url(id) { return AUDIO_BASE + "/music/" + format + "/" + id + "." + format; }
+function custom_url(id) { return AUDIO_BASE + "/custom/" + id + ".mp3"; }
+
 function flashbutton(clicked_id) {
 	document.getElementById(clicked_id).classList.add("btn-lit");
 }
@@ -27,7 +33,7 @@ function unflashbutton(clicked_id) {
 
 function play_sound(clicked_id) {
 	flashbutton(clicked_id);
-	audio = new Audio("sounds/sfx/"+format+"/"+clicked_id+"."+format);
+	audio = new Audio(sfx_url(clicked_id));
 	audio.play();
 	setTimeout(unflashbutton,500,clicked_id);
 }
@@ -36,7 +42,7 @@ function play_music(clicked_id) {
 	flashbutton(clicked_id);
 	music = document.getElementById("music_player");
 	music.pause();
-	music.src = "sounds/music/"+format+"/"+clicked_id+"."+format;
+	music.src = music_url(clicked_id);
 	music.play();
 	set_now_playing(document.getElementById(clicked_id).textContent);
 	cache_played_music(music.src);
@@ -48,9 +54,9 @@ function play_music_secret(clicked_id,event) {
 	music = document.getElementById("music_player");
 	music.pause();
 	if(event.shiftKey) {
-		music.src = "sounds/music/"+format+"/"+clicked_id+"_hidden."+format;
+		music.src = music_url(clicked_id + "_hidden");
 	} else {
-		music.src = "sounds/music/"+format+"/"+clicked_id+"."+format;
+		music.src = music_url(clicked_id);
 	}
 	music.play();
 	set_now_playing(document.getElementById(clicked_id).textContent);
@@ -60,7 +66,7 @@ function play_music_secret(clicked_id,event) {
 
 function play_mine(clicked_id) {
 	flashbutton(clicked_id);
-	audio = new Audio("custom/"+clicked_id+".mp3");
+	audio = new Audio(custom_url(clicked_id));
 	audio.play();
 	setTimeout(unflashbutton,500,clicked_id);
 }
@@ -69,7 +75,7 @@ function play_custom(clicked_id) {
 	flashbutton(clicked_id);
 	music = document.getElementById("music_player");
 	music.pause();
-	music.src = "custom/"+clicked_id+".mp3";
+	music.src = custom_url(clicked_id);
 	music.play();
 	set_now_playing(document.getElementById(clicked_id).textContent);
 	cache_played_music(music.src);
@@ -269,19 +275,19 @@ function urls_for_button(btn) {
 	var onclick = btn.getAttribute("onClick") || "";
 	var id = btn.id;
 	if (onclick.indexOf("play_sound(") === 0) {
-		return ["sounds/sfx/" + format + "/" + id + "." + format];
+		return [sfx_url(id)];
 	}
 	if (onclick.indexOf("play_music(") === 0) {
-		return ["sounds/music/" + format + "/" + id + "." + format];
+		return [music_url(id)];
 	}
 	if (onclick.indexOf("play_music_secret(") === 0) {
 		return [
-			"sounds/music/" + format + "/" + id + "." + format,
-			"sounds/music/" + format + "/" + id + "_hidden." + format
+			music_url(id),
+			music_url(id + "_hidden")
 		];
 	}
 	if (onclick.indexOf("play_mine(") === 0 || onclick.indexOf("play_custom(") === 0) {
-		return ["custom/" + id + ".mp3"];
+		return [custom_url(id)];
 	}
 	return [];
 }
@@ -673,7 +679,7 @@ function loadpage() {
 		</div>
 	</div>
 
-	<audio id="music_player" src="sounds/music/mp3/music_dark.mp3" preload="none" loop class="hidden"></audio>
+	<audio id="music_player" preload="none" loop class="hidden"></audio>
 
 	<footer class="footer-glow text-[11px] text-center pt-4 pb-2 leading-relaxed">
 		<p>Created by <a class="underline" href="https://banjogames.wordpress.com/">Banjo</a> (<span id="version">v3.0</span> mp3)</p>

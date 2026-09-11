@@ -7,7 +7,8 @@
 // responses for <audio> range requests (required for seeking, especially
 // on iOS Safari - a cached 200 response to a ranged request breaks it).
 
-var SHELL = "hq-shell-v2"; // bump this to ship shell changes; never rename hq-sfx/hq-music
+var SHELL = "hq-shell-v3"; // bump this to ship shell changes; never rename hq-sfx/hq-music
+var AUDIO_ORIGIN = "https://t5ysgwkiiembz7oj.public.blob.vercel-storage.com"; // must match index.html AUDIO_BASE
 var SHELL_FILES = [
 	"./",
 	"index.html",
@@ -30,14 +31,27 @@ self.addEventListener("install", function(event) {
 	);
 });
 
+// Bump this when hq-sfx/hq-music need a one-time purge (e.g. their URL scheme
+// changed), so old, now-unmatchable entries don't sit around forever. Checked
+// against a marker cache so it runs once per bump, not on every activation.
+var AUDIO_PURGE_VERSION = "blob-migration-1";
+
 self.addEventListener("activate", function(event) {
 	event.waitUntil(
-		caches.keys().then(function(names) {
-			return Promise.all(names.map(function(name) {
-				if (name.indexOf("hq-shell-") === 0 && name !== SHELL) {
-					return caches.delete(name);
-				}
-			}));
+		caches.has(AUDIO_PURGE_VERSION).then(function(already_purged) {
+			return Promise.all([
+				caches.keys().then(function(names) {
+					return Promise.all(names.map(function(name) {
+						if (name.indexOf("hq-shell-") === 0 && name !== SHELL) {
+							return caches.delete(name);
+						}
+						if (!already_purged && (name === "hq-sfx" || name === "hq-music")) {
+							return caches.delete(name);
+						}
+					}));
+				}),
+				already_purged ? Promise.resolve() : caches.open(AUDIO_PURGE_VERSION)
+			]);
 		}).then(function() {
 			return self.clients.claim();
 		})
@@ -68,7 +82,8 @@ self.addEventListener("fetch", function(event) {
 	if (request.method !== "GET") return;
 
 	var url = new URL(request.url);
-	if (url.origin !== self.location.origin) return;
+	var same_origin = url.origin === self.location.origin;
+	if (!same_origin && url.origin !== AUDIO_ORIGIN) return;
 
 	if (request.mode === "navigate") {
 		event.respondWith(
@@ -79,8 +94,13 @@ self.addEventListener("fetch", function(event) {
 		return;
 	}
 
+	// Same-origin entries are keyed by pathname+search (so query strings and
+	// scheme don't matter); cross-origin audio is keyed by the full request URL
+	// since it isn't ours to normalize.
+	var key = same_origin ? url.pathname + url.search : request.url;
+
 	event.respondWith(
-		caches.match(url.pathname + url.search).then(function(cached) {
+		caches.match(key).then(function(cached) {
 			if (cached) {
 				if (request.headers.has("range")) {
 					return serve_range(request, cached);
