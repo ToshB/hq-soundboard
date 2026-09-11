@@ -1,0 +1,109 @@
+HEROQUEST SOUND BOARD
+v3.0
+By Banjo
+
+--------------------------------------------------------------------------------------------------------
+Downloaded from https://banjogames.wordpress.com/
+If you find this useful, please donate at https://ko-fi.com/banjo_games
+
+--------------------------------------------------------------------------------------------------------
+SOUND FORMAT
+
+Given that some platforms (iOS and Android) have trouble playing the OGG sound formats used in previous versions of this sound board, I have created an alternative version that uses MP3 sounds and music instead. This drastically increases file size, sadly, but should hopefully allow use on mobile devices that cannot play OGG sound. Both downloads are offered; just pick the one your device supports (if unsure, MP3 is likely to be more compatible). Note that the version info onscreen will remind you which file format you are using.
+
+--------------------------------------------------------------------------------------------------------
+ADDING CUSTOM SOUNDS
+
+You can easily add up to five custom sound effects as follows:
+1) Copy up to five MP3 sound files to the subfolder "custom".
+2) Rename them "sound_custom1.mp3", "sound_custom2.mp3", "sound_custom3.mp3", "sound_custom4.mp3" and "sound_custom5.mp3".
+3) Press the buttons "Custom 1" to "Custom 5" on the sound board to play your custom sound effects.
+
+--------------------------------------------------------------------------------------------------------
+ADDING CUSTOM MUSIC
+
+You can easily add two custom music tracks as follows:
+1) Copy one or two MP3 music files to the subfolder "custom".
+2) Rename them "music_custom1.mp3" and "music_custom2.mp3".
+3) Press the buttons "MP3 #1" and "MP3 #2" on the sound board to play your custom music.
+
+--------------------------------------------------------------------------------------------------------
+CREDITS
+
+All sound effects are copyright Hasbro and Avalon Hill, except the following:
+* Acid = "758633__andrastos87__acid_splash.mp3" (Freesound.org) - Edited by Banjo
+* Arrow = "511489__lydmakeren__fx_bowarrow2.wav" (Freesound.org) - Edited by Banjo
+* Barrier = "542584__adr1911__doctor-strange-magic-circle-shield-sound-effect.mp3" (Freesound.org)
+* Beam = "512800__m-wolfe__zap.wav" (Freesound.org) - Edited by Banjo
+* Beam = "249819__spookymodem__magic-smite.wav" (Freesound.org) - Edited by Banjo
+* Bite = "30930__aust_paul__rip_tear-flesh.wav" (Freesound.org) - Edited by Banjo
+* Claw = "522168__magnuswaker__gut-rip-bladed.wav" (Freesound.org) - Edited by Banjo
+* Club = "581596__samsterbirdies__metal-drop-streetsign-1.flac" (Freesound.org) - Edited by Banjo
+* Darkness = "349490__tc630__mongo-chant.wav" (Freesound.org)
+* Holy = "319254__adharca__high-chant.wav" (Freesound.org)
+* Roar = "614007__aarontheonly__roar2.wav" (Freesound.org)
+* Water = "389620__silentstrikez__bathtub_wave_2.wav" (Freesound.org)
+* Whip = "615761__jayrom01__whip-and-crack-sound.wav" (Freesound.org) - Edited by Banjo
+* Axe, Inferno, Freeze, Shield and Throw were made by Banjo using many elements including the above.
+* Wind = "754256__heckfricker__winter-snowstorm-ambience.wav" (Freesound.org) - Edited by Banjo
+* Storm = "234340__esh9419__rainstorm-v3.flac" (Freesound.org) - Edited by Banjo
+* Town = "578072__ramonmineiro__medieval_village_atmosphere.wav" (Freesound.org)
+
+The following music is copyright Hasbro and Avalon Hill:
+* Battle = "Boss Battle"
+* Cold = "The Northlands"
+* Crypt = "The Witch King"
+* Dark = "Dark Ambience"
+* Dread = "Rise of the Dread Moon"
+* Horror = "The Frozen Horror"
+* Strange = "Jungle Mystery"
+* Fight = "Jungle Boss"
+
+The following music was used in Hasbro's official HeroQuest promos and trailers:
+* Promo1 = "To The End", by Devin Norris (courtesy of Atomica Music, from the album "Rising Intensity")
+* Promo2 = "Beam of Light", by Devin Norris (courtesy of Atomica Music, from the album "Rising Intensity")
+* Promo3 = "War of the Rings", by Alain Byloos (courtesy of Allen Grey Music)
+* Promo4 = "Dramatic", by StudioKolomna (from the album "Legacy Pt.2")
+
+The following music is by Kevin MacLeod, courtesy of Incompetech.com. Licensed under Creative Commons: By Attribution 4.0 License.
+* Chasm = "Crossing the Chasm"
+* Clash = "Clash Defiant"
+* Combat = "Death and Axes"
+* Drums = "Mountain Emperor"
+* Eastern = "Cartoon Battle"
+* Eerie = "Welcome to HorrorLand"
+* Elven = "Magic Forest"
+* Epic = "Final Battle of the Dark Wizards"
+* Fear = "Unseen Horrors"
+* Goblin = "The Path of the Goblin King"
+* Heroic = "Adventures in Adventureland"
+* March = "Evil March"
+* Mines = "Drums in the Deep"
+* Ominous = "Morgana Rides"
+* Scary = "Medusa"
+* Tribal = "Trouble with Tribals"
+* Unease = "Gathering Darkness"
+* War = "Five Armies"
+* Witch = "Baba Yaga"
+* Custom 1 = "Alchemists Tower"
+* Custom 2 = "Graveyard Shift"
+
+The following music is by Neil Baldwin, for the unreleased NES version of HeroQuest:
+* NES 1 = "Title Theme"
+* NES 2 = "Dungeon Theme"
+* NES 3 = "Ending Theme" (unused in the game)
+
+The following music is by Barry Leitch, for the PC and Amiga versions of the 1991 HeroQuest computer game:
+* PC (SB) = "Ingame Theme" MIDI, played on a Sound Blaster sound card
+* PC (32) = "Ingame Theme" MIDI, played on a Roland CM-32L or MT-32 sound card
+* Amiga 1 = "Intro Theme" Amiga MOD
+* Amiga 2 = "Ingame Theme" Amiga MOD
+* Cover = a piano cover of "Ingame Theme" (above), performed by Grazia Pizzuto (https://www.youtube.com/watch?v=aLhRlqqZTQ4)
+* Cover Hidden (shift-click "Cover") = a rock/metal cover of "Ingame Theme" (above), performed by Aki Järvinen (https://remix64.com/member/commando-64/)
+
+The following music is by Patrick Phelan, for the Amiga 1994 computer game HeroQuest II: Legacy of Sorasil:
+* Sorasil 1 = "Main Theme" Amiga MOD
+* Sorasil 2 = "Ingame Theme" Amiga MOD
+* Sorasil 3 = "Trader Theme" Amiga MOD
+
+NOTE: to play the "hidden" music, hold shift while clicking a button!

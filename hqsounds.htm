@@ -1,0 +1,554 @@
+<html>
+<head>
+<title>HeroQuest Sound Board</title>
+</head>
+
+<!-- STYLE -->
+
+<style>
+* {
+	font-family: "Carter Sans W01", "Carter Sans Pro", "Oldrichium ITC Pro", "Gaze", "Times New Roman", Times, serif;
+	box-sizing: border-box;
+}
+
+.panel {
+	float: left;
+	text-align: center;
+	background-image: url("images/gui/background2.png");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	width:1200px;
+	height:860px;
+	background-color: black;
+}
+
+.title {
+	font-size: 250%;
+	font-weight: bold;
+	text-align: center;
+	padding: 10px;
+}
+
+.midtitle {
+	font-size: 150%;
+	font-weight: bold;
+	text-align: center;
+}
+
+.subtitle {
+	text-align: center;
+	padding-bottom: 5px;
+}
+
+.footer {
+	font-size: 80%;
+	text-align: center;
+	padding-top: 5px;
+	padding-left: 340px;
+}
+
+
+.logo {
+	max-width: 280px;
+	height: auto;
+	padding-top: 20px;
+}
+
+.header {
+	text-align: center;
+	font-weight: bold;
+}
+
+.header2 {
+	text-align: center;
+	font-weight: bold;
+	padding-bottom: 5px;
+}
+
+.spacer1 {
+	padding-bottom: 5px;
+}
+
+.spacer2 {
+	padding-bottom: 25px;
+}
+
+.soundcolumn {
+	float: left;
+	width: 50%;
+	padding: 10px;
+}
+
+.soundpanel1 {
+	padding: 0px;
+}
+
+.soundpanel2 {
+	clear: both;
+}
+
+.gridbuttons1 {
+	display: grid;
+	grid-template-columns: 87px 87px 87px 87px 87px 87px;
+	grid-template-rows: 45px 45px 45px 45px 45px 45px;
+	justify-content: center;
+	padding: 5px;
+}
+
+.gridbuttons2 {
+	display: grid;
+	grid-template-columns: 80px 80px 80px 80px 80px 80px;
+	grid-template-rows: 50px;
+	justify-content: center;
+	padding: 5px;
+}
+
+.gridbuttons3 {
+	display: grid;
+	grid-template-columns: 360px 70px 70px 70px 70px 70px 70px 70px 70px 70px 70px 70px;
+	grid-template-rows: 50px 50px;
+	justify-content: center;
+	padding: 0px;
+}
+
+.gridbuttons4 {
+	display: grid;
+	grid-template-columns: 75px 75px 75px 75px 75px 75px 75px;
+	grid-template-rows: 50px 50px;
+	justify-content: center;
+	padding: 5px;
+}
+
+.gridbuttons5 {
+	display: grid;
+	grid-template-columns: 75px 75px 75px 75px 75px 75px 75px;
+	grid-template-rows: 50px;
+	justify-content: center;
+	padding: 5px;
+}
+
+.gridbuttons6 {
+	display: grid;
+	grid-template-columns: 320px 70px 70px 70px 70px 70px 70px 70px 70px 70px 70px 70px;
+	grid-template-rows: 30px 30px;
+	justify-content: center;
+	padding: 0px;
+}
+
+.gridplayer {
+	display: grid;
+	grid-template-columns: 59px 59px 59px 59px 59px 59px;
+	grid-template-rows: 40px 40px 40px 50px;
+	justify-content: center;
+	padding: 0px;
+}
+
+.button1 {
+	width: 80px;
+	height: 50px;
+	border-radius: 4px;
+	border: 1px solid tan;
+	cursor: pointer;
+	color: black;
+	background-color: linen;
+	font-weight: 600;
+	text-align: center;
+}
+
+.button2 {
+	width: 87px;
+	height: 45px;
+	border-radius: 4px;
+	border: 1px solid tan;
+	cursor: pointer;
+	color: black;
+	background-color: linen;
+	font-weight: 600;
+	text-align: center;
+}
+
+.button3 {
+	width: 70px;
+	height: 40px;
+	border-radius: 4px;
+	border: 1px solid tan;
+	cursor: pointer;
+	color: black;
+	background-color: linen;
+	font-weight: 600;
+	text-align: center;
+}
+
+.button4 {
+	width: 75px;
+	height: 50px;
+	border-radius: 4px;
+	border: 1px solid tan;
+	cursor: pointer;
+	color: black;
+	background-color: linen;
+	font-weight: 600;
+	text-align: center;
+}
+
+.button5 {
+	width: 60px;
+	height: 30px;
+	border-radius: 4px;
+	border: 1px solid tan;
+	cursor: pointer;
+	color: black;
+	background-color: linen;
+	font-weight: 600;
+	text-align: center;
+}
+
+.button6 {
+	width: 70px;
+	height: 30px;
+	border-radius: 4px;
+	border: 1px solid tan;
+	cursor: pointer;
+	color: black;
+	background-color: linen;
+	font-weight: 600;
+	text-align: center;
+}
+
+.button7 {
+	width: 59px;
+	height: 30px;
+	border-radius: 4px;
+	border: 1px solid tan;
+	cursor: pointer;
+	color: black;
+	background-color: linen;
+	font-weight: 600;
+	text-align: center;
+	font-size: 75%;
+}
+
+.buttonlit {
+	background-color: gold;
+}
+
+</style>
+
+<body onload="loadpage()">
+
+
+<!-- FUNCTIONS -->
+
+<script>
+var version="3.0";
+var format="mp3";
+var audio="";
+var music="";
+
+function flashbutton(clicked_id) {
+	document.getElementById(clicked_id).style="background-color:gold;";
+}
+
+function unflashbutton(clicked_id) {
+	document.getElementById(clicked_id).style="background-color:linen;";
+}
+
+function play_sound(clicked_id) {
+	flashbutton(clicked_id);
+	audio = new Audio("sounds/sfx/"+format+"/"+clicked_id+"."+format);
+	audio.play();
+	setTimeout(unflashbutton,500,clicked_id);
+}
+
+function play_sound_secret(clicked_id,event) {
+	flashbutton(clicked_id);
+	if(event.shiftKey) {
+		audio = new Audio("sounds/sfx/"+format+"/"+clicked_id+"_hidden."+format);
+	} else {
+		audio = new Audio("sounds/sfx/"+format+"/"+clicked_id+"."+format);
+	}
+	audio.play();
+	setTimeout(unflashbutton,500,clicked_id);
+}
+
+function play_music(clicked_id) {
+	flashbutton(clicked_id);
+	music = document.getElementById("music_player");
+	music.pause();
+	music.src = "sounds/music/"+format+"/"+clicked_id+"."+format;
+	music.volume = 0.20;
+	music.play();
+	setTimeout(unflashbutton,500,clicked_id);
+}
+
+function play_music_secret(clicked_id,event) {
+	flashbutton(clicked_id);
+	music = document.getElementById("music_player");
+	music.pause();
+	if(event.shiftKey) {
+		music.src = "sounds/music/"+format+"/"+clicked_id+"_hidden."+format;
+	} else {
+		music.src = "sounds/music/"+format+"/"+clicked_id+"."+format;
+	}
+	music.volume = 0.20;
+	music.play();
+	setTimeout(unflashbutton,500,clicked_id);
+}
+
+function play_mine(clicked_id) {
+	flashbutton(clicked_id);
+	audio = new Audio("custom/"+clicked_id+".mp3");
+	audio.play();
+	setTimeout(unflashbutton,500,clicked_id);
+}
+
+function play_custom(clicked_id) {
+	flashbutton(clicked_id);
+	music = document.getElementById("music_player");
+	music.pause();
+	music.src = "custom/"+clicked_id+".mp3";
+	music.volume = 0.20;
+	music.play();
+	setTimeout(unflashbutton,500,clicked_id);
+}
+
+function toggleaudio() {
+	if(document.getElementById('audio_ogg').checked) {
+		format="ogg";
+		document.getElementById("version").innerHTML = "v"+version+" "+format+"";
+	} else {
+		format="mp3";
+		document.getElementById("version").innerHTML = "v"+version+" "+format+"";
+	}
+}
+
+</script>
+
+
+<!-- PAGE : ONLOAD -->
+
+<script>
+
+function loadpage() {
+	document.getElementById("version").innerHTML = "v"+version+" "+format+"";
+}
+
+</script>
+
+<!-- DISPLAY : START -->
+
+<div class="panel">
+	<!--<div class="title">HeroQuest Sound Board</div>-->
+	<div class="soundpanel1">
+		<div class="soundcolumn">
+			<div class="midtitle">
+				<img class="logo" id="Logo" src="images/gui/logo.png">
+				<br>SOUND BOARD
+			</div>
+			<div class="subtitle">Created by <a href="https://banjogames.wordpress.com/">Banjo</a> (<span id="version">v3.0</span>)
+				<!--<input type="radio" id="audio_mp3" name="sndformat" value="mp3" onclick="toggleaudio();" checked>-->
+				<!--<label for="mp3">MP3</label>-->
+				<!--<input type="radio" id="audio_ogg" name="sndformat" value="ogg" onclick="toggleaudio();">-->
+				<!--<label for="html">OGG</label>-->
+			</div>
+			<div class="spacer1"></div>
+			<div class="header">MONSTERS</div>
+			<div class="gridbuttons1">
+					<button class="button2" id="monster_orc1" onClick="play_sound(this.id)">Orc 1</button>
+					<button class="button2" id="monster_orc2" onClick="play_sound(this.id)">Orc 2</button>
+					<button class="button2" id="monster_orc3" onClick="play_sound(this.id)">Orc 3</button>
+					<button class="button2" id="monster_goblin" onClick="play_sound(this.id)">Goblin</button>
+					<button class="button2" id="monster_abomination" onClick="play_sound(this.id)">Fishman</button>
+					<button class="button2" id="monster_skeleton" onClick="play_sound(this.id)">Skeleton</button>
+					<button class="button2" id="monster_zombie" onClick="play_sound(this.id)">Zombie</button>
+					<button class="button2" id="monster_mummy" onClick="play_sound(this.id)">Mummy</button>
+					<button class="button2" id="monster_dread-warrior" onClick="play_sound(this.id)">Dread Warrior</button>
+					<button class="button2" id="monster_dread-cultist" onClick="play_sound(this.id)">Dread Cultist</button>
+					<button class="button2" id="monster_gargoyle" onClick="play_sound(this.id)">Gargoyle</button>
+					<button class="button2" id="monster_ogre" onClick="play_sound(this.id)">Ogre</button>
+					<button class="button2" id="monster_gremlin" onClick="play_sound(this.id)">Gremlin</button>
+					<button class="button2" id="monster_giant-wolf" onClick="play_sound(this.id)">Wolf</button>
+					<button class="button2" id="monster_warbear" onClick="play_sound(this.id)">Bear</button>
+					<button class="button2" id="monster_yeti" onClick="play_sound(this.id)">Yeti</button>
+					<button class="button2" id="monster_gorilla" onClick="play_sound(this.id)">Ape</button>
+					<button class="button2" id="monster_raptor" onClick="play_sound(this.id)">Raptor</button>
+					<button class="button2" id="monster_blightcrawler" onClick="play_sound(this.id)">Crawler</button>
+					<button class="button2" id="monster_serpent2" onClick="play_sound(this.id)">Serpent</button>
+					<button class="button2" id="monster_beast1" onClick="play_sound(this.id)">Beast 1</button>
+					<button class="button2" id="monster_beast2" onClick="play_sound(this.id)">Beast 2</button>
+					<button class="button2" id="monster_thing-below" onClick="play_sound(this.id)">Beast 3</button>
+					<button class="button2" id="monster_serpent1" onClick="play_sound(this.id)">Beast 4</button>
+					<button class="button2" id="monster_spirit1" onClick="play_sound(this.id)">Spirit 1</button>
+					<button class="button2" id="monster_spirit2" onClick="play_sound(this.id)">Spirit 2</button>
+					<button class="button2" id="monster_specter" onClick="play_sound(this.id)">Specter</button>
+					<button class="button2" id="monster_death-mist" onClick="play_sound(this.id)">Death Mist</button>
+					<button class="button2" id="monster_skullblight" onClick="play_sound(this.id)">Skull Blight</button>
+					<button class="button2" id="monster_bloomscion" onClick="play_sound(this.id)">Bloom Scion</button>
+					<button class="button2" id="monster_centipede1" onClick="play_sound(this.id)">Bug 1</button>
+					<button class="button2" id="monster_centipede2" onClick="play_sound(this.id)">Bug 2</button>
+					<button class="button2" id="monster_spider1" onClick="play_sound(this.id)">Spider 1</button>
+					<button class="button2" id="monster_spider2" onClick="play_sound(this.id)">Spider 2</button>
+					<button class="button2" id="monster_snake" onClick="play_sound(this.id)">Snake</button>
+					<button class="button2" id="event_laugh-male" onClick="play_sound(this.id)">Laugh Male</button>
+					<button class="button2" id="event_laugh-female" onClick="play_sound(this.id)">Laugh Female</button>
+					<button class="button2" id="sound_custom1" onClick="play_mine(this.id)">Custom 1</button>
+					<button class="button2" id="sound_custom2" onClick="play_mine(this.id)">Custom 2</button>
+					<button class="button2" id="sound_custom3" onClick="play_mine(this.id)">Custom 3</button>
+					<button class="button2" id="sound_custom4" onClick="play_mine(this.id)">Custom 4</button>
+					<button class="button2" id="sound_custom5" onClick="play_mine(this.id)">Custom 5</button>
+			</div>
+			<div class="header">DOORS</div>
+			<div class="gridbuttons5">
+				<button class="button4" id="door_normal" onClick="play_sound(this.id)">Door</button>
+				<button class="button4" id="door_chest" onClick="play_sound(this.id)">Chest</button>
+				<button class="button4" id="door_secret" onClick="play_sound(this.id)">Secret</button>
+				<button class="button4" id="trap_trigger" onClick="play_sound(this.id)">Trigger</button>
+				<button class="button4" id="door_unlock" onClick="play_sound(this.id)">Unlock</button>
+				<button class="button4" id="door_portcullis" onClick="play_sound(this.id)">Gate</button>
+				<button class="button4" id="door_metal" onClick="play_sound(this.id)">Metal</button>
+			</div>
+		</div>
+		<div class="soundcolumn">
+			<div class="spacer2"></div>
+			<div class="header">SPELLS</div>
+			<div class="gridbuttons2">
+				<button class="button1" id="spell_cast" onClick="play_sound(this.id)">Cast</button>
+				<button class="button1" id="spell_buff" onClick="play_sound(this.id)">Heal</button>
+				<button class="button1" id="spell_debuff" onClick="play_sound(this.id)">Zap</button>
+				<button class="button1" id="spell_fireball" onClick="play_sound(this.id)">Fireball</button>
+				<button class="button1" id="spell_air" onClick="play_sound(this.id)">Air</button>
+				<button class="button1" id="spell_lightning" onClick="play_sound(this.id)">Lighting</button>
+				<button class="button1" id="spell_wind" onClick="play_sound(this.id)">Wind</button>
+				<button class="button1" id="spell_earthquake" onClick="play_sound(this.id)">Quake</button>
+				<button class="button1" id="spell_teleport" onClick="play_sound(this.id)">Teleport</button>
+				<button class="button1" id="spell_warp" onClick="play_sound(this.id)">Warp</button>
+				<button class="button1" id="spell_dread" onClick="play_sound(this.id)">Dread</button>
+				<button class="button1" id="spell_bard" onClick="play_sound(this.id)">Bard</button>
+				<button class="button1" id="spell_water" onClick="play_sound(this.id)">Water</button>
+				<button class="button1" id="spell_ice" onClick="play_sound(this.id)">Freeze</button>
+				<button class="button1" id="spell_firestorm" onClick="play_sound(this.id)">Inferno</button>
+				<button class="button1" id="spell_shield" onClick="play_sound(this.id)">Barrier</button>
+				<button class="button1" id="spell_chant2" onClick="play_sound(this.id)">Holy</button>
+				<button class="button1" id="spell_chant1" onClick="play_sound(this.id)">Darkness</button>
+			</div>
+			<div class="header">COMBAT</div>
+			<div class="gridbuttons4">
+				<button class="button4" id="attack_dagger" onClick="play_sound(this.id)">Dagger</button>
+				<button class="button4" id="attack_sword" onClick="play_sound(this.id)">Sword</button>
+				<button class="button4" id="attack_blade" onClick="play_sound(this.id)">Blade</button>
+				<button class="button4" id="attack_axe" onClick="play_sound(this.id)">Axe</button>
+				<button class="button4" id="attack_staff" onClick="play_sound(this.id)">Staff</button>
+				<button class="button4" id="attack_blunt" onClick="play_sound(this.id)">Club</button>
+				<button class="button4" id="attack_shield" onClick="play_sound(this.id)">Shield</button>
+				<button class="button4" id="attack_whip" onClick="play_sound(this.id)">Whip</button>
+				<button class="button4" id="attack_crossbow" onClick="play_sound(this.id)">Bolt</button>
+				<button class="button4" id="attack_bow" onClick="play_sound(this.id)">Arrow</button>
+				<button class="button4" id="attack_throw" onClick="play_sound(this.id)">Throw</button>
+				<button class="button4" id="attack_claw" onClick="play_sound(this.id)">Claw</button>
+				<button class="button4" id="attack_bite" onClick="play_sound(this.id)">Bite</button>
+				<button class="button4" id="spell_beam" onClick="play_sound(this.id)">Beam</button>
+			</div>
+			<div class="header">TRAPS</div>
+			<div class="gridbuttons4">
+				<button class="button4" id="trap_pit" onClick="play_sound(this.id)">Pit</button>
+				<button class="button4" id="trap_falling-block" onClick="play_sound(this.id)">Block</button>
+				<button class="button4" id="trap_spear" onClick="play_sound(this.id)">Spear</button>
+				<button class="button4" id="trap_axe" onClick="play_sound(this.id)">Axe</button>
+				<button class="button4" id="trap_blade" onClick="play_sound(this.id)">Blade</button>
+				<button class="button4" id="trap_stalactite" onClick="play_sound(this.id)">Stalactite</button>
+				<button class="button4" id="trap_fireburst" onClick="play_sound(this.id)">Fireburst</button>
+				<button class="button4" id="trap_poison-needle" onClick="play_sound(this.id)">Dart</button>
+				<button class="button4" id="trap_poison-gas" onClick="play_sound(this.id)">Gas</button>
+				<button class="button4" id="trap_exploding-lock" onClick="play_sound(this.id)">Explosive</button>
+				<button class="button4" id="trap_boulder" onClick="play_sound(this.id)">Boulder</button>
+				<button class="button4" id="trap_acid" onClick="play_sound(this.id)">Acid</button>
+				<button class="button4" id="trap_vine" onClick="play_sound(this.id)">Tangle</button>
+				<button class="button4" id="trap_emerge" onClick="play_sound(this.id)">Emerge</button>
+			</div>
+			<div class="header">EFFECTS</div>
+			<div class="gridbuttons4">
+				<button class="button4" id="event_gold" onClick="play_sound(this.id)">Gold</button>
+				<button class="button4" id="event_artifact" onClick="play_sound(this.id)">Reward</button>
+				<button class="button4" id="event_cheer" onClick="play_sound(this.id)">Cheer</button>
+				<button class="button4" id="event_boo" onClick="play_sound(this.id)">Boo</button>
+				<button class="button4" id="event_win" onClick="play_sound(this.id)">Victory</button>
+				<button class="button4" id="event_lose" onClick="play_sound(this.id)">Defeat</button>
+				<button class="button4" id="event_fire" onClick="play_sound(this.id)">Torch</button>
+				<button class="button4" id="event_horn" onClick="play_sound(this.id)">Horn</button>
+				<button class="button4" id="event_howl" onClick="play_sound(this.id)">Howl</button>
+				<button class="button4" id="monster_roar" onClick="play_sound(this.id)">Roar</button>
+				<button class="button4" id="event_water" onClick="play_sound(this.id)">Stream</button>
+				<button class="button4" id="event_gears" onClick="play_sound(this.id)">Gears</button>
+				<button class="button4" id="event_shatter" onClick="play_sound(this.id)">Shatter</button>
+				<button class="button4" id="event_foliage" onClick="play_sound(this.id)">Foliage</button>
+			</div>
+		</div>
+	</div>
+	<div class="soundpanel2">
+		<div class="header2">MUSIC</div>
+		<div class="gridbuttons3">
+			<div class="gridplayer">
+				<button class="button7" id="music_battle" onClick="play_music(this.id)">Battle</button>
+				<button class="button7" id="music_boss" onClick="play_music(this.id)">Fight</button>
+				<button class="button7" id="music_dark" onClick="play_music(this.id)">Dark</button>
+				<button class="button7" id="music_crypt" onClick="play_music(this.id)">Crypt</button>
+				<button class="button7" id="music_horror" onClick="play_music(this.id)">Horror</button>
+				<button class="button7" id="music_mystery" onClick="play_music(this.id)">Strange</button>
+				<button class="button7" id="music_cold" onClick="play_music(this.id)">Cold</button>
+				<button class="button7" id="ambient_jungle1" onClick="play_music(this.id)">Jungle1</button>
+				<button class="button7" id="ambient_jungle2" onClick="play_music(this.id)">Jungle2</button>
+				<button class="button7" id="ambient_wind" onClick="play_music(this.id)">Wind</button>
+				<button class="button7" id="ambient_storm" onClick="play_music(this.id)">Storm</button>
+				<button class="button7" id="ambient_town" onClick="play_music(this.id)">Town</button>
+				<button class="button7" id="music_trailer1" onClick="play_music(this.id)">Promo1</button>
+				<button class="button7" id="music_trailer2" onClick="play_music(this.id)">Promo2</button>
+				<button class="button7" id="music_trailer3" onClick="play_music(this.id)">Promo3</button>
+				<button class="button7" id="music_trailer4" onClick="play_music(this.id)">Promo4</button>
+				<p></p>
+				<p></p>
+				<audio id="music_player" src="sounds/music/ogg/music_dark.ogg" controls loop></audio>
+			</div>
+			<button class="button3" id="music_combat" onClick="play_music(this.id)">Combat</button>
+			<button class="button3" id="music_heroic" onClick="play_music(this.id)">Heroic</button>
+			<button class="button3" id="music_epic" onClick="play_music(this.id)">Epic</button>
+			<button class="button3" id="music_clash" onClick="play_music(this.id)">Clash</button>
+			<button class="button3" id="music_war" onClick="play_music(this.id)">War</button>
+			<button class="button3" id="music_tribal" onClick="play_music(this.id)">Tribal</button>
+			<button class="button3" id="music_chasm" onClick="play_music(this.id)">Chasm</button>
+			<button class="button3" id="music_drums" onClick="play_music(this.id)">Drums</button>
+			<button class="button3" id="music_elven" onClick="play_music(this.id)">Elven</button>
+			<button class="button3" id="music_eastern" onClick="play_music(this.id)">Eastern</button>
+			<button class="button3" id="music_goblin" onClick="play_music(this.id)">Goblin</button>
+			<p></p>
+			<button class="button3" id="music_mines" onClick="play_music(this.id)">Mines</button>
+			<button class="button3" id="music_witch" onClick="play_music(this.id)">Witch</button>
+			<button class="button3" id="music_ominous" onClick="play_music(this.id)">Ominous</button>
+			<button class="button3" id="music_unease" onClick="play_music(this.id)">Unease</button>
+			<button class="button3" id="music_eerie" onClick="play_music(this.id)">Eerie</button>
+			<button class="button3" id="music_scary" onClick="play_music(this.id)">Scary</button>
+			<button class="button3" id="music_fear" onClick="play_music(this.id)">Fear</button>
+			<button class="button3" id="music_march" onClick="play_music(this.id)">March</button>
+			<button class="button3" id="music_sneak" onClick="play_music(this.id)">Sneak</button>
+			<button class="button3" id="music_custom1" onClick="play_custom(this.id)">MP3 #1</button>
+			<button class="button3" id="music_custom2" onClick="play_custom(this.id)">MP3 #2</button>
+			<p></p>
+			<button class="button6" id="music_pc" onClick="play_music(this.id)">PC (SB)</button>
+			<button class="button6" id="music_pc-roland" onClick="play_music(this.id)">PC (ROL)</button>
+			<button class="button6" id="music_nes1" onClick="play_music(this.id)">NES 1</button>
+			<button class="button6" id="music_nes2" onClick="play_music(this.id)">NES 2</button>
+			<button class="button6" id="music_nes3" onClick="play_music(this.id)">NES 3</button>
+			<button class="button6" id="music_amiga1" onClick="play_music(this.id)">Amiga 1</button>
+			<button class="button6" id="music_amiga2" onClick="play_music(this.id)">Amiga 2</button>
+			<button class="button6" id="music_sorasil1" onClick="play_music(this.id)">Sorasil 1</button>
+			<button class="button6" id="music_sorasil2" onClick="play_music(this.id)">Sorasil 2</button>
+			<button class="button6" id="music_sorasil3" onClick="play_music(this.id)">Sorasil 3</button>
+			<button class="button6" id="music_pc-cover" onClick="play_music_secret(this.id,event)">Cover</button>
+		</div>
+	</div>
+	<div class="footer">Official sounds, music & art © Hasbro | Additional sounds courtesy of <a href="https://freesound.org/">Freesound.org</a> | Additional music courtesy of <a href="https://incompetech.com/">Incompetech.com</a><br>Chiptunes by Barry Leitch (DOS/Amiga), Patrick Phelan (Sorasil) & Neil Baldwin (NES). Covers by Grazia Pizzuto & Aki Järvinen.</div>
+</div>
+
+<!-- DISPLAY : END -->
+
+</body>
+</html>
