@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#000000">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="images/gui/icon-192.png">
 <title>HeroQuest Sound Board</title>
 
 <!-- STYLE -->
@@ -202,6 +204,52 @@ body {
 	background-color: gold;
 }
 
+.cached {
+	border-color: #2e7d32;
+	border-width: 2px;
+}
+
+/* Offline / download-for-offline block, top of the MUSIC tab */
+.offline {
+	max-width: 420px;
+	margin: 0 auto;
+	padding-bottom: 8px;
+}
+
+.offlinebtn {
+	width: 100%;
+}
+
+.offlinebtn:disabled {
+	cursor: default;
+	opacity: 0.7;
+}
+
+.cachebar {
+	margin-top: 6px;
+	height: 8px;
+	border: 1px solid tan;
+	border-radius: 4px;
+	background-color: black;
+	overflow: hidden;
+}
+
+.cachebar-fill {
+	height: 100%;
+	width: 0;
+	background-color: gold;
+	transition: width 0.2s linear;
+}
+
+.cachestatus {
+	text-align: center;
+	font-size: clamp(10px, 2.5vw, 12px);
+	font-weight: bold;
+	opacity: 0.65;
+	letter-spacing: 0.04em;
+	padding-top: 6px;
+}
+
 /* Sticky music player bar */
 .player {
 	position: sticky;
@@ -264,6 +312,7 @@ function play_music(clicked_id) {
 	music.src = "sounds/music/"+format+"/"+clicked_id+"."+format;
 	music.volume = 0.20;
 	music.play();
+	cache_played_music(music.src);
 	setTimeout(unflashbutton,500,clicked_id);
 }
 
@@ -278,6 +327,7 @@ function play_music_secret(clicked_id,event) {
 	}
 	music.volume = 0.20;
 	music.play();
+	cache_played_music(music.src);
 	setTimeout(unflashbutton,500,clicked_id);
 }
 
@@ -295,6 +345,7 @@ function play_custom(clicked_id) {
 	music.src = "custom/"+clicked_id+".mp3";
 	music.volume = 0.20;
 	music.play();
+	cache_played_music(music.src);
 	setTimeout(unflashbutton,500,clicked_id);
 }
 
@@ -320,9 +371,179 @@ function show_tab(name) {
 	window.scrollTo(0, 0);
 }
 
+/* ---- Offline caching (PWA) ---- */
+
+var SFX_CACHE = "hq-sfx";
+var MUSIC_CACHE = "hq-music";
+
+function urls_for_button(btn) {
+	var onclick = btn.getAttribute("onClick") || "";
+	var id = btn.id;
+	if (onclick.indexOf("play_sound(") === 0) {
+		return ["sounds/sfx/" + format + "/" + id + "." + format];
+	}
+	if (onclick.indexOf("play_music(") === 0) {
+		return ["sounds/music/" + format + "/" + id + "." + format];
+	}
+	if (onclick.indexOf("play_music_secret(") === 0) {
+		return [
+			"sounds/music/" + format + "/" + id + "." + format,
+			"sounds/music/" + format + "/" + id + "_hidden." + format
+		];
+	}
+	if (onclick.indexOf("play_mine(") === 0 || onclick.indexOf("play_custom(") === 0) {
+		return ["custom/" + id + ".mp3"];
+	}
+	return [];
+}
+
+function button_urls(selector) {
+	var buttons = document.querySelectorAll(selector);
+	var urls = [];
+	for (var i = 0; i < buttons.length; i++) {
+		urls = urls.concat(urls_for_button(buttons[i]));
+	}
+	var seen = {};
+	return urls.filter(function(u) {
+		if (seen[u]) return false;
+		seen[u] = true;
+		return true;
+	});
+}
+
+function sfx_urls() {
+	return button_urls("#panel_sounds .button");
+}
+
+function music_urls() {
+	return button_urls("#panel_music .button");
+}
+
+function absolute_url(relative) {
+	return new URL(relative, window.location.href).href;
+}
+
+function cache_urls(urls, cache_name, on_progress) {
+	if (!window.caches) return Promise.resolve();
+	return caches.open(cache_name).then(function(cache) {
+		var done = 0;
+		var total = urls.length;
+		if (on_progress) on_progress(done, total);
+
+		var queue = urls.slice();
+		function worker() {
+			var url = queue.shift();
+			if (!url) return Promise.resolve();
+			return cache.match(url).then(function(hit) {
+				var step = hit ? Promise.resolve() : fetch(url).then(function(response) {
+					if (response.ok) return cache.put(url, response);
+				}).catch(function() {
+					/* offline or missing file - skip, keep going */
+				});
+				return step.then(function() {
+					done++;
+					if (on_progress) on_progress(done, total);
+					return worker();
+				});
+			});
+		}
+
+		var workers = [];
+		for (var i = 0; i < 4; i++) workers.push(worker());
+		return Promise.all(workers);
+	});
+}
+
+function precache_sfx() {
+	cache_urls(sfx_urls(), SFX_CACHE, null).then(refresh_cache_status);
+}
+
+// Opportunistically cache a music/custom track the moment it's played, so a
+// track heard once during a session is available offline next time even if
+// "Download all music" was never pressed. Fetches independently of the
+// <audio> element so it doesn't disturb what's currently playing.
+function cache_played_music(src) {
+	if (!window.caches || !src) return;
+	caches.open(MUSIC_CACHE).then(function(cache) {
+		cache.match(src).then(function(hit) {
+			if (hit) return;
+			fetch(src).then(function(response) {
+				if (response.ok) {
+					cache.put(src, response).then(refresh_cache_status);
+				}
+			}).catch(function() {
+				/* offline or missing file - ignore */
+			});
+		});
+	});
+}
+
+function download_music() {
+	var btn = document.getElementById("cache_music");
+	btn.disabled = true;
+	cache_urls(music_urls(), MUSIC_CACHE, update_music_progress).then(function() {
+		btn.disabled = false;
+		btn.innerHTML = "Music cached for offline";
+		refresh_cache_status();
+	});
+}
+
+function update_music_progress(done, total) {
+	var pct = total ? Math.round((done / total) * 100) : 0;
+	var fill = document.getElementById("cache_fill");
+	if (fill) fill.style.width = pct + "%";
+	var status = document.getElementById("cache_status");
+	if (status) status.innerHTML = "Downloading music: " + done + " / " + total;
+}
+
+function refresh_cache_status() {
+	if (!window.caches) return Promise.resolve();
+	return Promise.all([
+		caches.open(SFX_CACHE).then(function(c) { return c.keys(); }),
+		caches.open(MUSIC_CACHE).then(function(c) { return c.keys(); })
+	]).then(function(results) {
+		var sfx_cached = results[0].length;
+		var music_cached = results[1].length;
+		var sfx_total = sfx_urls().length;
+		var music_total = music_urls().length;
+
+		var status = document.getElementById("cache_status");
+		var music_btn = document.getElementById("cache_music");
+		if (status && music_btn && !music_btn.disabled) {
+			status.innerHTML = "SFX " + sfx_cached + "/" + sfx_total + " cached &middot; music " + music_cached + "/" + music_total + " cached";
+		}
+
+		var cached_urls = {};
+		results[1].forEach(function(req) {
+			cached_urls[req.url] = true;
+		});
+		var music_buttons = document.querySelectorAll("#panel_music .button");
+		for (var i = 0; i < music_buttons.length; i++) {
+			var btn = music_buttons[i];
+			var urls = urls_for_button(btn);
+			var all_cached = urls.length > 0 && urls.every(function(u) {
+				return cached_urls[absolute_url(u)];
+			});
+			btn.classList.toggle("cached", all_cached);
+		}
+	});
+}
+
+function register_service_worker() {
+	if ("serviceWorker" in navigator) {
+		navigator.serviceWorker.register("sw.js");
+	}
+	if (navigator.storage && navigator.storage.persist) {
+		navigator.storage.persist();
+	}
+}
+
 function loadpage() {
 	document.getElementById("version").innerHTML = "v"+version+" "+format+"";
 	show_tab("sounds");
+	register_service_worker();
+	precache_sfx();
+	refresh_cache_status();
 }
 </script>
 </head>
@@ -486,6 +707,11 @@ function loadpage() {
 	<div class="tabpanel" id="panel_music" role="tabpanel" aria-labelledby="tab_music" hidden>
 	<div class="soundpanel2">
 		<div class="spacer1"></div>
+		<div class="offline">
+			<button class="button offlinebtn" id="cache_music" onClick="download_music()">Download all music for offline (382 MB)</button>
+			<div class="cachebar"><div class="cachebar-fill" id="cache_fill"></div></div>
+			<div class="cachestatus" id="cache_status"></div>
+		</div>
 		<div class="subheader">MOOD &amp; AMBIENCE</div>
 		<div class="gridbuttons grid-music">
 			<button class="button" id="music_battle" onClick="play_music(this.id)">Battle</button>
