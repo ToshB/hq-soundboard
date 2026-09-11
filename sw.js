@@ -7,11 +7,13 @@
 // responses for <audio> range requests (required for seeking, especially
 // on iOS Safari - a cached 200 response to a ranged request breaks it).
 
-var SHELL = "hq-shell-v1"; // bump this to ship shell changes; never rename hq-sfx/hq-music
+var SHELL = "hq-shell-v2"; // bump this to ship shell changes; never rename hq-sfx/hq-music
 var SHELL_FILES = [
 	"./",
 	"index.html",
 	"manifest.webmanifest",
+	"dist/app.css",
+	"fonts/cinzel-600.woff2",
 	"images/gui/logo.png",
 	"images/gui/background2.png",
 	"images/gui/icon-192.png",

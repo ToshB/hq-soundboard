@@ -1,0 +1,12 @@
+{
+	"name": "heroquest-sound-board",
+	"private": true,
+	"scripts": {
+		"build:css": "tailwindcss -i src/app.css -o dist/app.css --minify",
+		"watch:css": "tailwindcss -i src/app.css -o dist/app.css --watch"
+	},
+	"devDependencies": {
+		"@tailwindcss/cli": "^4",
+		"tailwindcss": "^4"
+	}
+}

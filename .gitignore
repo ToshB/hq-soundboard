@@ -1,3 +1,5 @@
 /.idea
 /.DS_Store
 /sounds
+/node_modules
+*.swp
