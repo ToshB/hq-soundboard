@@ -15,6 +15,12 @@ export const QUEST_INTRO = {
 
 export const QUESTS: Quest[] = [
 	{
+		number: 1,
+		title: "Katakombenes vokter",
+		summary:
+			"Dypt under jorden ligger Fellmargs grav, og i mørket der nede holder gargoylen Verag evig vakt. Dette er heltenes aller første prøvelse: finn veien gjennom katakombene, spor opp uhyret, og legg det for evig til ro. Ingen snarveier, ingen skjulte utveier — bare samhold og stål avgjør om dere består.",
+	},
+	{
 		number: 2,
 		title: "Ridderen i lenker",
 		summary:
