@@ -26,4 +26,10 @@ export const QUESTS: Quest[] = [
 		summary:
 			"Ridder Ragnar, en av kongens fremste sverd, er falt i fangenskap hos orkhøvdingen Ulag. Et fangehull venter et sted i mørket der nede — finn det, bryt lenkene, og før ridderen levende tilbake til trappen før orkflokken slår full alarm. Faller han i kamp på veien ut, er all ære og lønn tapt for godt.",
 	},
+	{
+		number: 3,
+		title: "Krigsherrens hule",
+		summary:
+			"Ulag slapp unna sist, men prins Magnus krever nå endelig hevn: spor opp orkkrigsherren i hans eget tilhold, og la ham aldri true riket igjen. Dypt i hans befestede hule voktes rikdom og våpen av loyalitet og frykt alene — det bytte helten selv finner, får han beholde, men kongens takknemlighet tilfaller dem alle når Ulag er felt.",
+	},
 ];
