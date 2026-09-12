@@ -32,4 +32,10 @@ export const QUESTS: Quest[] = [
 		summary:
 			"Ulag slapp unna sist, men prins Magnus krever nå endelig hevn: spor opp orkkrigsherren i hans eget tilhold, og la ham aldri true riket igjen. Dypt i hans befestede hule voktes rikdom og våpen av loyalitet og frykt alene — det bytte helten selv finner, får han beholde, men kongens takknemlighet tilfaller dem alle når Ulag er felt.",
 	},
+	{
+		number: 4,
+		title: "Prinsens gull",
+		summary:
+			"Tre forseglede kister med prinsens gull ble kapret på vei til kongen, tatt av en orkflokk under Gulthor, en kriger fra Undergangens rekker, som nå gjemmer byttet i sin borg i Mørkefjellene. Sporet opp kistene, bær dem trygt hjem, og prisen på 240 gullmynter er heltenes — men gullet i kistene selv tilhører kronen alene.",
+	},
 ];
