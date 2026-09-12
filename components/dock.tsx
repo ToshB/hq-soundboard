@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { DEFAULT_VOLUME, usePlayer, VOLUME_KEY } from "@/hooks/use-player";
 
-export type Tab = "sounds" | "music";
+export type Tab = "sounds" | "music" | "quests";
 
 export function Dock({ activeTab, onTabChange }: { activeTab: Tab; onTabChange: (tab: Tab) => void }) {
 	const { audioRef, nowPlaying, isPaused } = usePlayer();
@@ -107,6 +107,15 @@ export function Dock({ activeTab, onTabChange }: { activeTab: Tab; onTabChange: 
 					onClick={() => onTabChange("music")}
 				>
 					Music
+				</button>
+				<button
+					type="button"
+					className={`tab${activeTab === "quests" ? " tab-active" : ""}`}
+					role="tab"
+					aria-selected={activeTab === "quests"}
+					onClick={() => onTabChange("quests")}
+				>
+					Quests
 				</button>
 			</div>
 		</div>

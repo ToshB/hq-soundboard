@@ -289,6 +289,54 @@
 		text-shadow: 0 0 4px rgba(255, 243, 219, 0.95), 0 0 8px rgba(255, 243, 219, 0.8);
 	}
 
+	/* Quest tab — short GM-facing reference cards */
+	.quest-card {
+		text-align: left;
+		background-color: var(--color-linen);
+		border: 1px solid var(--color-tan);
+		border-bottom-width: 2px;
+		border-bottom-color: var(--color-edge);
+		border-radius: 4px;
+		padding: 10px 14px;
+		margin-bottom: 10px;
+	}
+
+	.quest-intro {
+		background-color: rgba(255, 255, 255, 0.08);
+		border-color: var(--color-tan);
+	}
+
+	.quest-intro .quest-summary {
+		color: var(--color-linen);
+		font-style: italic;
+	}
+
+	.quest-intro .quest-title {
+		color: var(--color-gold);
+	}
+
+	.quest-number {
+		font-family: var(--font-display);
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		color: var(--color-seal);
+	}
+
+	.quest-title {
+		font-family: var(--font-display);
+		font-size: 16px;
+		font-weight: 700;
+		color: var(--color-ink);
+		margin: 2px 0 6px;
+	}
+
+	.quest-summary {
+		font-size: 13px;
+		line-height: 1.45;
+		color: var(--color-ink);
+	}
+
 	.cachebar {
 		margin-top: 6px;
 		height: 6px;
