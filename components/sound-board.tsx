@@ -9,6 +9,7 @@ import { computeCachedTileIds } from "@/lib/offline-cache";
 import { MUSIC_GROUPS, SOUND_COLUMNS, TILES_BY_ID } from "@/lib/catalog";
 import { Dock, type Tab } from "./dock";
 import { OfflinePanel } from "./offline-panel";
+import { QuestsPanel } from "./quests-panel";
 import { TileGrid } from "./tile-grid";
 
 const VERSION = "3.0";
@@ -110,6 +111,10 @@ export function SoundBoard() {
 							/>
 						</div>
 					))}
+				</div>
+
+				<div hidden={activeTab !== "quests"} role="tabpanel">
+					<QuestsPanel />
 				</div>
 
 				<footer className="footer-glow text-[11px] text-center pt-4 pb-2 leading-relaxed">
